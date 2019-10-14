@@ -20,7 +20,7 @@ scrape_configs:
   - job_name: 'node'
     static_configs:
 {% if grafana_server_group_name in groups %}
-{% for host in (groups['all'] | difference(groups[grafana_server_group_name])) %}
+{% for host in (groups['ceph'] | difference(groups[grafana_server_group_name])) %}
       - targets: ['{{ host }}:{{ node_exporter_port }}']
         labels:
           instance: "{{ hostvars[host]['ansible_nodename'] }}"
@@ -33,7 +33,7 @@ scrape_configs:
           instance: "{{ hostvars[host]['ansible_nodename'] }}"
 {% endfor %}
 {% else %}
-{% for host in groups['all'] %}
+{% for host in groups['ceph'] %}
       - targets: ['{{ host }}:{{ node_exporter_port }}']
         labels:
           instance: "{{ hostvars[host]['ansible_nodename'] }}"
