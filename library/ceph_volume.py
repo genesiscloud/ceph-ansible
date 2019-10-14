@@ -320,7 +320,8 @@ def batch(module, container_image):
     cmd.extend(batch_devices)
 
     if block_db_devices:
-        cmd.extend(['--db-devices', ' '.join(block_db_devices)])
+        cmd.append('--db-devices')
+        cmd.extend(block_db_devices)
 
     if wal_devices:
         cmd.extend(['--wal-devices', ' '.join(wal_devices)])
