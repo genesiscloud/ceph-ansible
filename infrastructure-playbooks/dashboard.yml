@@ -30,7 +30,7 @@
             status: "Complete"
             end: "{{ lookup('pipe', 'date +%Y%m%d%H%M%SZ') }}"
 
-- hosts: "{{ grafana_server_group_name }}"
+- hosts: ceph-grafana
   gather_facts: false
   become: true
   pre_tasks:
@@ -50,8 +50,6 @@
         name: ceph-facts
       tags: ['ceph_update_config']
     - import_role:
-        name: ceph-container-engine
-    - import_role:
         name: ceph-prometheus
     - import_role:
         name: ceph-grafana
@@ -67,7 +65,7 @@
 
 # using groups[] here otherwise it can't fallback to the mon if there's no mgr group.
 # adding an additional | default(omit) in case where no monitors are present (external ceph cluster)
-- hosts: "{{ groups[mgr_group_name] | default(groups[mon_group_name]) | default(omit) }}"
+- hosts: "{{ groups['ceph-mgrs'] | default(groups['ceph-mons']) | default(omit) }}"
   gather_facts: false
   become: true
   pre_tasks:
