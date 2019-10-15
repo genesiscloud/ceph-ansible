@@ -20,7 +20,7 @@ ExecStart=/usr/bin/{{ container_binary }} run --name=alertmanager \
   --cpu-quota={{ alertmanager_container_cpu_period * alertmanager_container_cpu_cores }} \
   --memory={{ alertmanager_container_memory }}GB \
   --memory-swap={{ alertmanager_container_memory * 2 }}GB \
-  {{ alertmanager_container_image }} \
+  {{ ceph_docker_registry + '/' + alertmanager_container_image }} \
   --config.file=/etc/alertmanager/alertmanager.yml \
   --storage.path=/alertmanager \
   --web.listen-address=:{{ alertmanager_port }}
