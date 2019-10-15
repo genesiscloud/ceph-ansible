@@ -738,6 +738,7 @@ grafana_plugins:
   - grafana-piechart-panel
 grafana_allow_embedding: True
 grafana_port: 3000
+grafana_accessible: True
 prometheus_container_image: prom/prometheus:latest
 prometheus_container_cpu_period: 100000
 prometheus_container_cpu_cores: 2
